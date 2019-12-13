@@ -1,5 +1,8 @@
 import cv2
 import imutils
+import numpy
+
+GRADIENT_TYPE_UINT_8 = "uint8"
 
 
 def load_image(image_path):
@@ -43,6 +46,27 @@ def morphology_tophat(image, kernel):
     return cv2.morphologyEx(image, cv2.MORPH_TOPHAT, kernel)
 
 
+def morphology_close(image, kernel):
+    """
+    Apply a Tophat (white hat) morphological operator.
+    :param image:
+    :param kernel:
+    :return:
+    """
+    return cv2.morphologyEx(image, cv2.MORPH_CLOSE, kernel)
+
+
+def apply_otsus_threshold(image, minVal, maxVal):
+    """
+    Apply Otsu's threshold to binarize image
+    :param image:
+    :param minVal:
+    :param maxVal:
+    :return:
+    """
+    return cv2.threshold(image, minVal, maxVal, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+
+
 def get_morphology_rect(size):
     """
     Get Structuring Kernel
@@ -50,3 +74,39 @@ def get_morphology_rect(size):
     :return:
     """
     return cv2.getStructuringElement(cv2.MORPH_RECT, size)
+
+
+def apply_scharr_gradient(image, dx, dy):
+    """
+    Apply Scharr Gradient on an Image
+    :param image:
+    :param dx:
+    :param dy:
+    :return:
+    """
+    return cv2.Sobel(image, ddepth=cv2.CV_32F, dx=dx, dy=dy, ksize=-1)
+
+
+def normalize_gradient(gradient, type):
+    """
+    Normalize Gradient image
+    :param gradient:
+    :param type:
+    :return:
+    """
+    normalized_gradient = numpy.absolute(gradient)
+    (minVal, maxVal) = (numpy.min(normalized_gradient), numpy.max(normalized_gradient))
+    scaled = scale_gradient(normalized_gradient, minVal, maxVal, 255)
+    return scaled.astype(type)
+
+
+def scale_gradient(gradient, min_val, max_val, scale):
+    """
+    Scale gradient image
+    :param gradient:
+    :param min_val:
+    :param max_val:
+    :param scale:
+    :return:
+    """
+    return scale * ((gradient - min_val) / (max_val - min_val))
