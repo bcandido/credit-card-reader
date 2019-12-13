@@ -1,5 +1,3 @@
-import cv2
-
 import opencv
 from cli import CommandLineParser
 
@@ -28,7 +26,9 @@ def main():
     # apply close again for eliminate gaps
     thresh = opencv.morphology_close(thresh, square_kernel)
 
-    opencv.show(thresh)
+    # find grouped digits
+    digits = opencv.find_digit_groups(thresh)
+    print(digits)
 
 
 def parser_arguments():

@@ -110,3 +110,36 @@ def scale_gradient(gradient, min_val, max_val, scale):
     :return:
     """
     return scale * ((gradient - min_val) / (max_val - min_val))
+
+
+def grab_contours(image):
+    """
+    Grab image contours for a given image
+    :param image:
+    :return:
+    """
+    contours = cv2.findContours(image.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    return imutils.grab_contours(contours)
+
+
+def find_digit_groups(image, sort=True):
+    """
+    Loop over image contours to find digit groups.
+    :param image:
+    :param sort:
+    :return:
+    """
+    contours = grab_contours(image)
+
+    # loop over the contours
+    digit_group_locations = []
+    for (i, c) in enumerate(contours):
+        (x, y, w, h) = cv2.boundingRect(c)
+        ar = w / float(h)
+
+        if 2.5 < ar < 4.0:
+            if (40 < w < 55) and (10 < h < 20):
+                digit_group_locations.append((x, y, w, h))
+
+    digit_group_locations = sorted(digit_group_locations, key=lambda x:x[0]) if sort else digit_group_locations
+    return digit_group_locations
