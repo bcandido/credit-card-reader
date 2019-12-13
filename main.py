@@ -27,8 +27,22 @@ def main():
     thresh = opencv.morphology_close(thresh, square_kernel)
 
     # find grouped digits
-    digits = opencv.find_digit_groups(thresh)
-    print(digits)
+    digits = find_digit_groups(thresh)
+
+
+def find_digit_groups(image, sort=True):
+    contours = opencv.grab_contours(image)
+
+    digit_group_locations = []
+    for (i, contour) in enumerate(contours):
+        x, y, w, h = opencv.get_bounding_rect(contour)
+        aspect_radio = w / float(h)
+
+        if 2.5 < aspect_radio < 4.0:  # wider than it is tall (values found experimentally)
+            if (40 < w < 55) and (10 < h < 20):
+                digit_group_locations.append((x, y, w, h))
+
+    return sorted(digit_group_locations, key=lambda x: x[0]) if sort else digit_group_locations
 
 
 def parser_arguments():
