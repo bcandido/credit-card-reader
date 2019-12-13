@@ -46,7 +46,7 @@ def morphology_tophat(image, kernel):
 def get_morphology_rect(size):
     """
     Get Structuring Kernel
-    :param ksize:
+    :param size:
     :return:
     """
     return cv2.getStructuringElement(cv2.MORPH_RECT, size)
