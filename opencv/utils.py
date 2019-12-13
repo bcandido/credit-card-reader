@@ -31,3 +31,22 @@ def show(image):
     """
     cv2.imshow("Showing image", image)
     cv2.waitKey(0)
+
+
+def morphology_tophat(image, kernel):
+    """
+    Apply a Tophat (white hat) morphological operator.
+    :param image:
+    :param kernel:
+    :return:
+    """
+    return cv2.morphologyEx(image, cv2.MORPH_TOPHAT, kernel)
+
+
+def get_morphology_rect(size):
+    """
+    Get Structuring Kernel
+    :param ksize:
+    :return:
+    """
+    return cv2.getStructuringElement(cv2.MORPH_RECT, size)
