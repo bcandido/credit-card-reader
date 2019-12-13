@@ -133,13 +133,13 @@ def find_digit_groups(image, sort=True):
 
     # loop over the contours
     digit_group_locations = []
-    for (i, c) in enumerate(contours):
-        (x, y, w, h) = cv2.boundingRect(c)
-        ar = w / float(h)
+    for (i, contour) in enumerate(contours):
+        (x, y, width, height) = cv2.boundingRect(contour)
+        aspect_radio = width / float(height)
 
-        if 2.5 < ar < 4.0:
-            if (40 < w < 55) and (10 < h < 20):
-                digit_group_locations.append((x, y, w, h))
+        if 2.5 < aspect_radio < 4.0:
+            if (40 < width < 55) and (10 < height < 20):
+                digit_group_locations.append((x, y, width, height))
 
-    digit_group_locations = sorted(digit_group_locations, key=lambda x:x[0]) if sort else digit_group_locations
+    digit_group_locations = sorted(digit_group_locations, key=lambda x: x[0]) if sort else digit_group_locations
     return digit_group_locations
