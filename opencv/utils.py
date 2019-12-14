@@ -143,7 +143,7 @@ def get_bounding_rect(contour):
     return x, y, w, h
 
 
-def draw_rectangle(image, point_1, point_2, color, thickness=None, lineType=None, shift=None):
+def draw_rectangle(image, point_1, point_2, color, thickness):
     """
     Draw rectangle for a given image
     :param image:
@@ -151,8 +151,6 @@ def draw_rectangle(image, point_1, point_2, color, thickness=None, lineType=None
     :param point_2:
     :param color:
     :param thickness:
-    :param lineType:
-    :param shift:
     :return:
     """
-    cv2.rectangle(image, point_1, point_2, color, thickness, lineType, shift)
+    cv2.rectangle(image, point_1, point_2, color, thickness)
