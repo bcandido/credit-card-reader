@@ -4,5 +4,23 @@ Simple program for reads numbers from credit cards.
 
 ## System Requirements
 
-- python 3.6
-- pip 19.3.1
+- make (version GNU Make 4.1)
+- python3 (version 3.6)
+- python3-venv (version 3.6)
+- pip (version 19.3.1)
+
+## Environment Setup
+
+First, create virtual environment
+```shell script
+make venv
+```
+Then, download requirements
+```shell script
+make requirements
+```
+
+And finally, for running
+```shell script
+make run image=assets/credit_card_01.png
+```
