@@ -29,6 +29,16 @@ def main():
     # find grouped digits
     digits = find_digit_groups(thresh)
 
+    output = draw_digits_contours(image, digits)
+    opencv.show(output)
+
+
+def draw_digits_contours(image, digits):
+    output_image = opencv.resize(image, width=300)
+    for (i, (gX, gY, gW, gH)) in enumerate(digits):
+        opencv.draw_rectangle(output_image, (gX - 5, gY - 5), (gX + gW + 5, gY + gH + 5), (0, 0, 255), 2)
+    return output_image
+
 
 def find_digit_groups(image, sort=True):
     contours = opencv.grab_contours(image)

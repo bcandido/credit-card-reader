@@ -25,6 +25,17 @@ def convert_to_gray_scale(image, resize_width=300):
     return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 
+def resize(image, width=None, height=None):
+    """
+    Resize image
+    :param image:
+    :param width:
+    :param height:
+    :return:
+    """
+    return imutils.resize(image, width=width, height=height)
+
+
 def show(image):
     """
     Simply show an image
@@ -130,3 +141,18 @@ def get_bounding_rect(contour):
     """
     (x, y, w, h) = cv2.boundingRect(contour)
     return x, y, w, h
+
+
+def draw_rectangle(image, point_1, point_2, color, thickness=None, lineType=None, shift=None):
+    """
+    Draw rectangle for a given image
+    :param image:
+    :param point_1:
+    :param point_2:
+    :param color:
+    :param thickness:
+    :param lineType:
+    :param shift:
+    :return:
+    """
+    cv2.rectangle(image, point_1, point_2, color, thickness, lineType, shift)
