@@ -21,7 +21,7 @@ def convert_to_gray_scale(image, resize_width=300):
     :param resize_width: default 300
     :return: gray scale image resized
     """
-    image = imutils.resize(image, width=resize_width)
+    image = resize(image, width=300)
     return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 
@@ -59,7 +59,7 @@ def morphology_tophat(image, kernel):
 
 def morphology_close(image, kernel):
     """
-    Apply a Tophat (white hat) morphological operator.
+    Apply a closing morphological operator.
     :param image:
     :param kernel:
     :return:
