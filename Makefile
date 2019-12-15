@@ -14,7 +14,7 @@ requirements:
 
 run:
 	source venv/bin/activate && \
-	$(PYTHON) main.py --image $(image)
+	$(PYTHON) src/main.py --image $(image)
 
 venv:
 	$(PYTHON) -m venv $(VENV)

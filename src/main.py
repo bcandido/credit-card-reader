@@ -1,5 +1,5 @@
 import opencv
-from cli import CommandLineParser
+from parser import CommandLineParser
 
 
 def main():
