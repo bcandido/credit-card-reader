@@ -1,6 +1,7 @@
 SHELL:=/bin/bash
 
 PYTHON?=$(CURDIR)/venv/bin/python
+PYTEST?=$(CURDIR)/venv/bin/pytest
 PIP?=$(CURDIR)/venv/bin/pip
 VENV=$(CURDIR)/venv
 
@@ -15,6 +16,11 @@ requirements:
 run:
 	source venv/bin/activate && \
 	$(PYTHON) src/main.py --image $(image)
+
+.PHONY: test
+test:
+	source $(VENV)/bin/activate && \
+	$(PYTEST) -q test/test_*.py
 
 venv:
 	python3 -m venv $(VENV)
