@@ -1,7 +1,7 @@
 SHELL:=/bin/bash
 
-PYTHON?=$(shell which python3)
-PIP?=$(shell which pip)
+PYTHON?=$(CURDIR)/venv/bin/python
+PIP?=$(CURDIR)/venv/bin/pip
 VENV=$(CURDIR)/venv
 
 image?=assets/credit_card_01.png
@@ -17,4 +17,4 @@ run:
 	$(PYTHON) src/main.py --image $(image)
 
 venv:
-	$(PYTHON) -m venv $(VENV)
+	python3 -m venv $(VENV)
