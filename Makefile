@@ -20,7 +20,8 @@ run:
 .PHONY: test
 test:
 	source $(VENV)/bin/activate && \
-	$(PYTEST) -q test/test_*.py
+	export PYTHONPATH=./src && \
+	$(PYTEST) -v test/test_*.py
 
 venv:
 	python3 -m venv $(VENV)
