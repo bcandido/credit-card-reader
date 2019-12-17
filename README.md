@@ -24,3 +24,7 @@ And finally, for running
 ```shell script
 make run image=assets/credit_card_01.png
 ```
+
+## Reference
+
+https://www.pyimagesearch.com/2017/07/17/credit-card-ocr-with-opencv-and-python/
