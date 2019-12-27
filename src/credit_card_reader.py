@@ -2,8 +2,9 @@ import opencv
 
 
 class CreditCardReader():
-    def __init__(self, image):
+    def __init__(self, image, debug=False):
         self.image = image
+        self.debug = debug
 
     def detect(self):
         # initialize a rectangular and square kernel
@@ -13,23 +14,33 @@ class CreditCardReader():
         # Find light regions against a dark background (i.e., credit card numbers)
         gray = opencv.convert_to_gray_scale(self.image)
         tophat = opencv.morphology_tophat(gray, rect_kernel)
+        if self.debug:
+            opencv.show(tophat)
 
         # isolate digits
         grad_x = opencv.apply_scharr_gradient(tophat, dx=1, dy=0)
         grad_x = opencv.normalize_gradient(grad_x, opencv.GRADIENT_TYPE_UINT_8)
+        if self.debug:
+            opencv.show(grad_x)
 
         # eliminate gaps in between credit card number digits
         grad_x = opencv.morphology_close(grad_x, rect_kernel)
         thresh = opencv.apply_otsus_threshold(grad_x, 0, 255)
+        if self.debug:
+            opencv.show(thresh)
 
         # apply close again for eliminate gaps
         thresh = opencv.morphology_close(thresh, square_kernel)
+        if self.debug:
+            opencv.show(thresh)
 
         # find grouped digits
         digits = self._find_digit_groups(thresh)
-
         output = self._draw_digits_contours(self.image, digits)
-        opencv.show(output)
+        if self.debug:
+            opencv.show(output)
+
+        return output
 
     @staticmethod
     def _draw_digits_contours(image, digits):

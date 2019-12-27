@@ -1,7 +1,6 @@
 SHELL:=/bin/bash
 
 PYTHON?=$(CURDIR)/venv/bin/python
-PYTEST?=$(CURDIR)/venv/bin/pytest
 PIP?=$(CURDIR)/venv/bin/pip
 VENV=$(CURDIR)/venv
 
@@ -17,11 +16,10 @@ run:
 	source venv/bin/activate && \
 	$(PYTHON) src/main.py --image $(image)
 
-.PHONY: test
 test:
 	source $(VENV)/bin/activate && \
-	export PYTHONPATH=./src && \
-	$(PYTEST) -v test/test_*.py
+	cd ./src/tests && \
+	$(PYTHON) -m pytest
 
 venv:
 	python3 -m venv $(VENV)

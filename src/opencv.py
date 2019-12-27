@@ -1,6 +1,6 @@
-import cv2
 import imutils
 import numpy
+from cv2 import cv2
 
 GRADIENT_TYPE_UINT_8 = "uint8"
 
