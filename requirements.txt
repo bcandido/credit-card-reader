@@ -1,6 +1,6 @@
 argparse==1.4.0
 attribute-dict==1.0.0
-opencv-python==4.1.2.30
+opencv-python==4.2.0.32
 imutils==0.5.3
 numpy==1.16.5
 pytest==5.3.2
